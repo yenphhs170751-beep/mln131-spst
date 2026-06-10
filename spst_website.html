@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chủ Nghĩa Xã Hội Khoa Học – MLN131</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #C0392B;
+    --red-bright: #E74C3C;
+    --gold: #F0C040;
+    --navy: #0D1B2A;
+    --navy-mid: #1A2E42;
+    --cream: #F8F5EF;
+    --warm-white: #FDFCFA;
+    --text-dark: #1C1C1E;
+    --text-mid: #4A4A4A;
+    --text-light: #8A8A8A;
+    --border: #E0D9CF;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,27,42,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(240,192,64,0.2);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold); font-size: 1.1rem; font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: #fff; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; background: var(--navy);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 100px 5% 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(192,57,43,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 50% at 20% 80%, rgba(240,192,64,0.07) 0%, transparent 60%);
+  }
+  .hero-star {
+    position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+    width: 300px; height: 300px; opacity: 0.04;
+    font-size: 300px; line-height: 1; user-select: none;
+  }
+  .hero-eyebrow {
+    color: var(--gold); font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 20px; position: relative;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 40px; height: 2px; background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    font-weight: 900; line-height: 1.05;
+    color: #fff; position: relative;
+    max-width: 780px;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--gold);
+  }
+  .hero-sub {
+    margin-top: 28px; max-width: 520px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.1rem; line-height: 1.75;
+    color: rgba(255,255,255,0.6); position: relative;
+  }
+  .hero-ctas { display: flex; gap: 16px; margin-top: 44px; flex-wrap: wrap; position: relative; }
+  .btn-primary {
+    background: var(--red); color: #fff;
+    padding: 14px 32px; border-radius: 4px;
+    font-weight: 600; font-size: 0.9rem; letter-spacing: 0.03em;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--red-bright); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: rgba(255,255,255,0.8);
+    padding: 14px 32px; border-radius: 4px;
+    font-weight: 500; font-size: 0.9rem; letter-spacing: 0.03em;
+    text-decoration: none; border: 1px solid rgba(255,255,255,0.25);
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block; cursor: pointer;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats {
+    display: flex; gap: 48px; margin-top: 72px;
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 36px;
+    position: relative;
+  }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--gold); }
+  .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.45); margin-top: 4px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 96px 5%; }
+  .section-label {
+    display: inline-block;
+    background: var(--red); color: #fff;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 2px;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700; line-height: 1.2; max-width: 640px;
+  }
+  .section-intro {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.05rem; line-height: 1.8; color: var(--text-mid);
+    max-width: 580px; margin-top: 16px;
+  }
+
+  /* ── CHAPTER 1: GCCN ── */
+  #chuong1 { background: var(--warm-white); }
+  .chapter-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; margin-top: 64px;
+  }
+  .chapter-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 40px;
+    position: relative; overflow: hidden;
+    transition: box-shadow 0.25s, transform 0.2s;
+  }
+  .chapter-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .chapter-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%; background: var(--red);
+  }
+  .card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem; font-weight: 900;
+    color: rgba(192,57,43,0.12); line-height: 1;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700; margin-bottom: 12px;
+  }
+  .card-body { font-size: 0.9rem; line-height: 1.75; color: var(--text-mid); }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .tag {
+    background: rgba(192,57,43,0.08); color: var(--red);
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em;
+    padding: 4px 10px; border-radius: 20px;
+  }
+
+  /* Feature strip */
+  .feature-strip {
+    background: var(--navy); color: #fff;
+    display: flex; padding: 0;
+    overflow: hidden;
+  }
+  .feature-block {
+    flex: 1; padding: 56px 40px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+  }
+  .feature-block:last-child { border-right: none; }
+  .feature-block:hover { background: rgba(255,255,255,0.03); }
+  .feature-num { font-family: 'Playfair Display', serif; font-size: 0.8rem; color: var(--gold); margin-bottom: 16px; }
+  .feature-title { font-size: 1rem; font-weight: 600; margin-bottom: 10px; line-height: 1.4; }
+  .feature-body { font-size: 0.83rem; line-height: 1.7; color: rgba(255,255,255,0.5); }
+
+  /* ── CHAPTER 2: CNXH ── */
+  #chuong2 { background: var(--cream); }
+  .timeline { margin-top: 64px; position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 24px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--red), rgba(192,57,43,0.1));
+  }
+  .tl-item { display: flex; gap: 48px; margin-bottom: 56px; align-items: flex-start; }
+  .tl-dot {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: var(--red); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem;
+    flex-shrink: 0; position: relative; z-index: 1;
+    box-shadow: 0 0 0 8px rgba(192,57,43,0.1);
+  }
+  .tl-content {
+    background: var(--warm-white); border: 1px solid var(--border);
+    border-radius: 8px; padding: 32px 36px; flex: 1;
+    transition: box-shadow 0.25s;
+  }
+  .tl-content:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.07); }
+  .tl-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; }
+  .tl-body { font-size: 0.88rem; line-height: 1.75; color: var(--text-mid); }
+  .tl-tags { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* Features grid */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 56px;
+  }
+  .fg-card {
+    background: var(--warm-white); border: 1px solid var(--border);
+    border-radius: 8px; padding: 32px;
+    transition: box-shadow 0.2s;
+  }
+  .fg-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+  .fg-icon { font-size: 2rem; margin-bottom: 16px; }
+  .fg-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; }
+  .fg-body { font-size: 0.85rem; line-height: 1.7; color: var(--text-mid); }
+
+  /* ── CHAPTER 3: DÂN CHỦ ── */
+  #chuong3 { background: var(--navy); color: #fff; }
+  #chuong3 .section-title { color: #fff; }
+  #chuong3 .section-intro { color: rgba(255,255,255,0.6); }
+  .dc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 64px; }
+  .dc-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 40px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .dc-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(240,192,64,0.3); }
+  .dc-card .card-num { color: rgba(240,192,64,0.2); }
+  .dc-card .card-title { color: #fff; }
+  .dc-card .card-body { color: rgba(255,255,255,0.55); }
+  .dc-card .tag { background: rgba(240,192,64,0.12); color: var(--gold); }
+
+  /* Quote block */
+  .quote-block {
+    margin-top: 64px;
+    background: rgba(255,255,255,0.04);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 40px 48px;
+  }
+  .quote-text {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.3rem; line-height: 1.7;
+    font-style: italic; color: rgba(255,255,255,0.85);
+    margin-bottom: 20px;
+  }
+  .quote-source { font-size: 0.8rem; color: var(--gold); letter-spacing: 0.05em; font-weight: 600; text-transform: uppercase; }
+
+  /* Diagram: Đảng – Nhà nước – Nhân dân */
+  .diagram { margin-top: 48px; display: flex; gap: 0; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .diag-node {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px; padding: 24px 32px; text-align: center;
+    min-width: 180px;
+  }
+  .diag-node.center { background: var(--red); border-color: var(--red); transform: scale(1.08); }
+  .diag-arrow { font-size: 1.5rem; color: rgba(255,255,255,0.3); padding: 0 16px; }
+  .diag-label { font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+  .diag-sub { font-size: 0.75rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
+  .diag-node.center .diag-sub { color: rgba(255,255,255,0.7); }
+
+  /* ── QUIZ ── */
+  #quiz { background: var(--warm-white); }
+  .quiz-wrapper {
+    background: var(--navy); border-radius: 12px;
+    padding: 56px; margin-top: 56px; color: #fff;
+    max-width: 800px; margin-left: auto; margin-right: auto;
+  }
+  .quiz-progress-bar {
+    height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px;
+    margin-bottom: 40px; overflow: hidden;
+  }
+  .quiz-progress-fill {
+    height: 100%; background: var(--gold);
+    border-radius: 4px; transition: width 0.4s ease;
+  }
+  .quiz-q { font-family: 'Source Serif 4', serif; font-size: 1.15rem; line-height: 1.65; margin-bottom: 32px; }
+  .quiz-q .q-num { color: var(--gold); font-style: normal; font-weight: 600; margin-right: 8px; }
+  .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+  .quiz-opt {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px; padding: 16px 20px;
+    font-size: 0.9rem; line-height: 1.5; color: rgba(255,255,255,0.85);
+    cursor: pointer; transition: background 0.15s, border-color 0.15s;
+    text-align: left;
+  }
+  .quiz-opt:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.25); }
+  .quiz-opt.correct { background: rgba(46,204,113,0.2); border-color: #2ECC71; color: #fff; }
+  .quiz-opt.wrong { background: rgba(231,76,60,0.2); border-color: var(--red-bright); color: #fff; }
+  .quiz-opt.disabled { pointer-events: none; }
+  .quiz-explanation {
+    margin-top: 20px; padding: 16px 20px;
+    background: rgba(240,192,64,0.1); border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0; font-size: 0.85rem;
+    color: rgba(255,255,255,0.75); line-height: 1.65; display: none;
+  }
+  .quiz-nav { display: flex; justify-content: flex-end; margin-top: 32px; }
+  .quiz-score {
+    text-align: center; display: none;
+  }
+  .score-big { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 900; color: var(--gold); }
+  .score-label { font-size: 1rem; color: rgba(255,255,255,0.6); margin-top: 8px; }
+  .score-msg { font-family: 'Source Serif 4', serif; font-size: 1.1rem; line-height: 1.7; color: rgba(255,255,255,0.8); margin-top: 20px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080E15; padding: 56px 5% 40px;
+    color: rgba(255,255,255,0.4); font-size: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-inner { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .footer-logo { font-family: 'Playfair Display', serif; color: rgba(255,255,255,0.3); font-size: 1rem; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* Scroll animation */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* Max width container */
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  @media (max-width: 768px) {
+    .chapter-grid, .features-grid, .dc-grid { grid-template-columns: 1fr; }
+    .feature-strip { flex-direction: column; }
+    .hero-stats { gap: 28px; flex-wrap: wrap; }
+    .nav-links { display: none; }
+    .quiz-wrapper { padding: 32px 24px; }
+    .diagram { flex-direction: column; }
+    .diag-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">CNXH <span>Khoa Học</span></div>
+  <ul class="nav-links">
+    <li><a href="#chuong1">Giai cấp CN</a></li>
+    <li><a href="#chuong2">CNXH</a></li>
+    <li><a href="#chuong3">Dân chủ</a></li>
+    <li><a href="#quiz">Trắc nghiệm</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-star">★</div>
+  <div class="container">
+    <div class="hero-eyebrow">MLN131 — Chủ nghĩa xã hội khoa học</div>
+    <h1 class="hero-title">Ba chương cốt lõi.<br><em>Hiểu đúng,</em> hiểu sâu.</h1>
+    <p class="hero-sub">Hệ thống hóa trọng tâm kiến thức: Sứ mệnh giai cấp công nhân — Chủ nghĩa xã hội & thời kỳ quá độ — Nền dân chủ và nhà nước XHCN.</p>
+    <div class="hero-ctas">
+      <a href="#chuong1" class="btn-primary">Bắt đầu học →</a>
+      <a href="#quiz" class="btn-ghost">Làm trắc nghiệm</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Chủ đề chính</div>
+      </div>
+      <div>
+        <div class="stat-num">7</div>
+        <div class="stat-label">Nội dung trọng tâm</div>
+      </div>
+      <div>
+        <div class="stat-num">15</div>
+        <div class="stat-label">Câu trắc nghiệm</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 1: GIAI CẤP CÔNG NHÂN -->
+<section id="chuong1">
+  <div class="container">
+    <div class="fade-up">
+      <span class="section-label">Chủ đề 1</span>
+      <h2 class="section-title">Giai cấp công nhân & Sứ mệnh lịch sử</h2>
+      <p class="section-intro">Giai cấp công nhân — lực lượng sản xuất chủ yếu của xã hội hiện đại — mang trong mình sứ mệnh lịch sử căn bản: xóa bỏ chế độ tư bản, xây dựng xã hội cộng sản.</p>
+    </div>
+
+    <div class="chapter-grid fade-up">
+      <div class="chapter-card">
+        <div class="card-num">01</div>
+        <div class="card-title">Khái niệm & Đặc điểm</div>
+        <div class="card-body">Giai cấp công nhân (giai cấp vô sản) là tập đoàn người lao động làm thuê trong nền đại công nghiệp tư bản chủ nghĩa. Họ không sở hữu tư liệu sản xuất và phải bán sức lao động để sống. Đây là giai cấp tiên tiến nhất, cách mạng nhất trong xã hội tư bản.</div>
+        <div class="card-tags">
+          <span class="tag">Giai cấp vô sản</span>
+          <span class="tag">Sức lao động</span>
+          <span class="tag">Đại công nghiệp</span>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <div class="card-num">02</div>
+        <div class="card-title">Nội dung Sứ mệnh Lịch sử</div>
+        <div class="card-body">Sứ mệnh lịch sử của GCCN có ba nội dung căn bản: (1) <strong>Kinh tế</strong> — xóa bỏ sở hữu tư nhân TBCN, xây dựng nền kinh tế XHCN; (2) <strong>Chính trị–xã hội</strong> — giành chính quyền, thiết lập nhà nước của GCCN; (3) <strong>Văn hóa–tư tưởng</strong> — xây dựng hệ tư tưởng Mác–Lênin làm chủ đạo.</div>
+        <div class="card-tags">
+          <span class="tag">Kinh tế</span>
+          <span class="tag">Chính trị–xã hội</span>
+          <span class="tag">Văn hóa–tư tưởng</span>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <div class="card-num">03</div>
+        <div class="card-title">Điều kiện thực hiện Sứ mệnh</div>
+        <div class="card-body"><strong>Điều kiện khách quan:</strong> Mâu thuẫn nội tại của CNTB ngày càng gay gắt; sự phát triển của lực lượng sản xuất tạo tiền đề vật chất. <strong>Nhân tố chủ quan:</strong> GCCN cần có chính đảng tiên phong (Đảng Cộng sản), có tổ chức chặt chẽ và lý luận khoa học làm kim chỉ nam.</div>
+        <div class="card-tags">
+          <span class="tag">Điều kiện khách quan</span>
+          <span class="tag">Đảng tiên phong</span>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <div class="card-num">04</div>
+        <div class="card-title">GCCN Việt Nam hiện nay</div>
+        <div class="card-body">GCCN Việt Nam mang đặc điểm riêng: trưởng thành qua đấu tranh cách mạng, đặt dưới sự lãnh đạo của Đảng CSVN. Trong thời kỳ đổi mới, GCCN không ngừng lớn mạnh cả về số lượng và chất lượng, đóng vai trò then chốt trong sự nghiệp CNH–HĐH đất nước.</div>
+        <div class="card-tags">
+          <span class="tag">Việt Nam</span>
+          <span class="tag">CNH–HĐH</span>
+          <span class="tag">Đổi mới</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE STRIP -->
+<div class="feature-strip fade-up">
+  <div class="feature-block">
+    <div class="feature-num">I</div>
+    <div class="feature-title">Tính tất yếu khách quan</div>
+    <div class="feature-body">GCCN là sản phẩm tất yếu của nền đại công nghiệp TBCN, có lợi ích đối lập căn bản với giai cấp tư sản.</div>
+  </div>
+  <div class="feature-block">
+    <div class="feature-num">II</div>
+    <div class="feature-title">Vai trò lãnh đạo cách mạng</div>
+    <div class="feature-body">Thông qua Đảng Cộng sản, GCCN lãnh đạo toàn bộ quần chúng nhân dân lao động trong cuộc đấu tranh giải phóng dân tộc và giai cấp.</div>
+  </div>
+  <div class="feature-block">
+    <div class="feature-num">III</div>
+    <div class="feature-title">Liên minh công–nông–trí</div>
+    <div class="feature-body">Liên minh giữa GCCN, giai cấp nông dân và tầng lớp trí thức là nền tảng chính trị–xã hội vững chắc của chính quyền nhà nước XHCN.</div>
+  </div>
+</div>
+
+<!-- CHAPTER 2: CNXH -->
+<section id="chuong2">
+  <div class="container">
+    <div class="fade-up">
+      <span class="section-label">Chủ đề 2</span>
+      <h2 class="section-title">Chủ nghĩa xã hội & Thời kỳ quá độ</h2>
+      <p class="section-intro">CNXH là giai đoạn đầu của hình thái kinh tế–xã hội cộng sản chủ nghĩa, được xây dựng thông qua một thời kỳ quá độ lâu dài và phức tạp từ CNTB.</p>
+    </div>
+
+    <div class="features-grid fade-up">
+      <div class="fg-card">
+        <div class="fg-icon">🏭</div>
+        <div class="fg-title">Sở hữu xã hội về TLSX</div>
+        <div class="fg-body">Tư liệu sản xuất chủ yếu thuộc sở hữu toàn dân và tập thể. Xóa bỏ chế độ tư hữu TBCN là điều kiện nền tảng.</div>
+      </div>
+      <div class="fg-card">
+        <div class="fg-icon">⚖️</div>
+        <div class="fg-title">Phân phối theo lao động</div>
+        <div class="fg-body">Nguyên tắc "Làm theo năng lực, hưởng theo lao động" — khác với CNTB (bóc lột giá trị thặng dư) và cộng sản (hưởng theo nhu cầu).</div>
+      </div>
+      <div class="fg-card">
+        <div class="fg-icon">🏛️</div>
+        <div class="fg-title">Nhà nước của nhân dân</div>
+        <div class="fg-body">Nhà nước chuyên chính vô sản bảo vệ thành quả cách mạng, tổ chức xây dựng xã hội mới và đảm bảo quyền làm chủ thực sự của nhân dân lao động.</div>
+      </div>
+      <div class="fg-card">
+        <div class="fg-icon">🎓</div>
+        <div class="fg-title">Nền văn hóa XHCN</div>
+        <div class="fg-body">Xây dựng nền văn hóa tiên tiến, đậm đà bản sắc dân tộc; phát triển con người toàn diện — mục tiêu cao nhất của CNXH.</div>
+      </div>
+      <div class="fg-card">
+        <div class="fg-icon">🌍</div>
+        <div class="fg-title">Chủ nghĩa quốc tế</div>
+        <div class="fg-body">Đoàn kết quốc tế của giai cấp công nhân và các dân tộc bị áp bức là nguyên tắc hành động chiến lược trong CNXHKH.</div>
+      </div>
+      <div class="fg-card">
+        <div class="fg-icon">📈</div>
+        <div class="fg-title">Phát triển lực lượng sản xuất</div>
+        <div class="fg-body">CNXH tạo điều kiện cho LLSX phát triển mạnh mẽ, năng suất lao động tăng cao — cơ sở vật chất kỹ thuật không ngừng được củng cố.</div>
+      </div>
+    </div>
+
+    <div class="timeline fade-up" style="margin-top: 80px;">
+      <div style="margin-bottom: 40px;">
+        <span class="section-label">Thời kỳ quá độ</span>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; margin-top:12px;">Con đường quá độ lên CNXH ở Việt Nam</h3>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-content">
+          <div class="tl-title">Tính tất yếu của thời kỳ quá độ</div>
+          <div class="tl-body">Từ CNTB lên CNXH không thể là bước nhảy vọt tức thì. Cần một thời kỳ cải biến toàn diện và sâu sắc: kinh tế nhiều thành phần, nhà nước quá độ, đấu tranh ý thức hệ còn phức tạp. Đây là quy luật phổ biến, Việt Nam không ngoại lệ.</div>
+          <div class="tl-tags">
+            <span class="tag">Quy luật phổ biến</span>
+            <span class="tag">Cải biến toàn diện</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-content">
+          <div class="tl-title">Đặc điểm của thời kỳ quá độ</div>
+          <div class="tl-body">Ba lĩnh vực đặc trưng: (1) <em>Kinh tế</em> — tồn tại nhiều hình thức sở hữu, nhiều thành phần kinh tế; (2) <em>Chính trị</em> — chuyên chính vô sản, xây dựng nhà nước pháp quyền; (3) <em>Tư tưởng–văn hóa</em> — đấu tranh giữa hệ tư tưởng cũ và mới còn gay gắt.</div>
+          <div class="tl-tags">
+            <span class="tag">Đa thành phần KT</span>
+            <span class="tag">Chuyên chính vô sản</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-content">
+          <div class="tl-title">Quá độ "bỏ qua" ở Việt Nam</div>
+          <div class="tl-body">Việt Nam tiến lên CNXH bỏ qua chế độ TBCN — không có nghĩa bỏ qua mọi thành tựu văn minh nhân loại mà CNTB đạt được, mà bỏ qua sự thống trị của quan hệ sản xuất TBCN. Đây là con đường vừa phù hợp quy luật phổ biến, vừa có đặc điểm sáng tạo của Việt Nam.</div>
+          <div class="tl-tags">
+            <span class="tag">Đặc thù Việt Nam</span>
+            <span class="tag">Sáng tạo</span>
+            <span class="tag">Không phủ nhận văn minh</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 3: DÂN CHỦ & NHÀ NƯỚC -->
+<section id="chuong3">
+  <div class="container">
+    <div class="fade-up">
+      <span class="section-label">Chủ đề 3</span>
+      <h2 class="section-title">Nền Dân chủ & Nhà nước XHCN</h2>
+      <p class="section-intro">Dân chủ XHCN là chế độ dân chủ cao nhất trong lịch sử — dân chủ thực sự cho đa số nhân dân lao động, gắn liền với nhà nước pháp quyền XHCN.</p>
+    </div>
+
+    <div class="dc-grid fade-up">
+      <div class="dc-card">
+        <div class="card-num">01</div>
+        <div class="card-title">Quá trình ra đời Dân chủ XHCN</div>
+        <div class="card-body">Dân chủ XHCN được xác lập sau khi GCCN và nhân dân lao động giành được chính quyền. Từ Công xã Paris (1871) đến CNXH hiện thực thế kỷ XX, dân chủ XHCN từng bước được hoàn thiện về lý luận và thực tiễn.</div>
+        <div class="card-tags">
+          <span class="tag">Công xã Paris</span>
+          <span class="tag">Lịch sử</span>
+        </div>
+      </div>
+      <div class="dc-card">
+        <div class="card-num">02</div>
+        <div class="card-title">Bản chất Dân chủ XHCN</div>
+        <div class="card-body">Bản chất của dân chủ XHCN là quyền lực thuộc về nhân dân lao động — đa số dân chúng. Khác với dân chủ tư sản (bảo vệ thiểu số hữu sản), dân chủ XHCN bảo vệ lợi ích của đại đa số nhân dân lao động.</div>
+        <div class="card-tags">
+          <span class="tag">Quyền lực nhân dân</span>
+          <span class="tag">Đa số lao động</span>
+        </div>
+      </div>
+      <div class="dc-card">
+        <div class="card-num">03</div>
+        <div class="card-title">Nhà nước XHCN: Bản chất & Chức năng</div>
+        <div class="card-body">Nhà nước XHCN là công cụ quyền lực của GCCN và nhân dân lao động. Chức năng: tổ chức và quản lý kinh tế–xã hội; chuyên chính với kẻ thù giai cấp; bảo vệ toàn vẹn lãnh thổ; thực hiện đối ngoại hòa bình, hữu nghị.</div>
+        <div class="card-tags">
+          <span class="tag">Chức năng kinh tế</span>
+          <span class="tag">Chuyên chính</span>
+          <span class="tag">Đối ngoại</span>
+        </div>
+      </div>
+      <div class="dc-card">
+        <div class="card-num">04</div>
+        <div class="card-title">Nhà nước pháp quyền XHCN Việt Nam</div>
+        <div class="card-body">Nhà nước pháp quyền XHCN Việt Nam có đặc điểm: quản lý bằng Hiến pháp và pháp luật; quyền lực nhà nước thống nhất nhưng có sự phân công; đặt dưới sự lãnh đạo của Đảng CSVN; phục vụ lợi ích nhân dân.</div>
+        <div class="card-tags">
+          <span class="tag">Hiến pháp</span>
+          <span class="tag">Pháp quyền</span>
+          <span class="tag">Việt Nam</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-block fade-up">
+      <p class="quote-text">"Đảng lãnh đạo, Nhà nước quản lý, Nhân dân làm chủ" — cơ chế vận hành của toàn bộ hệ thống chính trị XHCN Việt Nam.</p>
+      <div class="quote-source">Văn kiện Đảng CSVN</div>
+    </div>
+
+    <div class="diagram fade-up">
+      <div class="diag-node">
+        <div class="diag-label">Đảng CSVN</div>
+        <div class="diag-sub">Lãnh đạo<br>toàn diện</div>
+      </div>
+      <div class="diag-arrow">⟷</div>
+      <div class="diag-node center">
+        <div class="diag-label">Nhân dân</div>
+        <div class="diag-sub">Làm chủ<br>thực sự</div>
+      </div>
+      <div class="diag-arrow">⟷</div>
+      <div class="diag-node">
+        <div class="diag-label">Nhà nước</div>
+        <div class="diag-sub">Quản lý<br>xã hội</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="container">
+    <div class="fade-up">
+      <span class="section-label">Ôn tập</span>
+      <h2 class="section-title">Trắc nghiệm kiến thức</h2>
+      <p class="section-intro">15 câu hỏi trắc nghiệm bao phủ cả 3 chủ đề. Kiểm tra mức độ nắm vững của bạn ngay!</p>
+    </div>
+
+    <div class="quiz-wrapper fade-up" id="quizBox">
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+      <div id="quizContent"></div>
+      <div class="quiz-score" id="quizScore"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">CNXH Khoa Học · MLN131</div>
+    <div class="footer-links">
+      <a href="#chuong1">Chủ đề 1</a>
+      <a href="#chuong2">Chủ đề 2</a>
+      <a href="#chuong3">Chủ đề 3</a>
+      <a href="#quiz">Trắc nghiệm</a>
+    </div>
+    <div>© 2025 Tài liệu học tập MLN131</div>
+  </div>
+</footer>
+
+<script>
+// ── SCROLL ANIMATIONS ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── QUIZ ──
+const questions = [
+  {
+    q: "Giai cấp công nhân (vô sản) được định nghĩa là những người lao động nào?",
+    opts: ["Những người sở hữu nhiều nhà máy và xí nghiệp", "Những người lao động làm thuê trong nền đại công nghiệp, không có tư liệu sản xuất", "Những nông dân làm việc trên đất của mình", "Những thương nhân buôn bán trong nền kinh tế thị trường"],
+    ans: 1,
+    ex: "GCCN là những người lao động làm thuê, không sở hữu TLSX, phải bán sức lao động cho giai cấp tư sản."
+  },
+  {
+    q: "Sứ mệnh lịch sử của giai cấp công nhân bao gồm mấy nội dung chính?",
+    opts: ["1 nội dung — kinh tế", "2 nội dung — kinh tế và chính trị", "3 nội dung — kinh tế, chính trị–xã hội và văn hóa–tư tưởng", "4 nội dung — bao gồm cả quân sự"],
+    ans: 2,
+    ex: "Sứ mệnh lịch sử của GCCN có 3 nội dung: kinh tế (xóa bỏ CNTB), chính trị–xã hội (giành chính quyền) và văn hóa–tư tưởng (xây dựng hệ tư tưởng XHCN)."
+  },
+  {
+    q: "Nhân tố chủ quan quan trọng nhất để GCCN hoàn thành sứ mệnh lịch sử là gì?",
+    opts: ["Sự hỗ trợ tài chính từ bên ngoài", "Đảng Cộng sản tiên phong với lý luận khoa học Mác–Lênin", "Sự ủng hộ của giai cấp tư sản tiến bộ", "Nền kinh tế phát triển mạnh"],
+    ans: 1,
+    ex: "Đảng Cộng sản với lý luận Mác–Lênin là nhân tố chủ quan quyết định, là đội tiên phong của GCCN."
+  },
+  {
+    q: "Chủ nghĩa xã hội là giai đoạn nào trong hình thái kinh tế–xã hội cộng sản chủ nghĩa?",
+    opts: ["Giai đoạn cuối, khi đã hoàn thiện hoàn toàn", "Giai đoạn đầu, còn nhiều dấu ấn của xã hội cũ", "Giai đoạn giữa, sau khi đã xóa bỏ nhà nước", "Một hình thái hoàn toàn độc lập, không liên quan đến cộng sản chủ nghĩa"],
+    ans: 1,
+    ex: "CNXH là giai đoạn đầu (thấp) của hình thái kinh tế–xã hội cộng sản chủ nghĩa, vẫn mang 'dấu ấn' của xã hội cũ về phân phối và tổ chức."
+  },
+  {
+    q: "Nguyên tắc phân phối đặc trưng của giai đoạn CNXH là gì?",
+    opts: ["Hưởng theo nhu cầu", "Làm theo năng lực, hưởng theo lao động", "Ai có vốn nhiều hưởng nhiều", "Phân phối bình quân cho tất cả mọi người"],
+    ans: 1,
+    ex: "CNXH phân phối theo lao động: 'Làm theo năng lực, hưởng theo lao động'. Chỉ đến giai đoạn cộng sản chủ nghĩa cao mới đạt tới 'hưởng theo nhu cầu'."
+  },
+  {
+    q: "Tại sao cần thiết phải có thời kỳ quá độ từ CNTB lên CNXH?",
+    opts: ["Vì GCCN chưa đủ trình độ lãnh đạo ngay", "Vì không thể chuyển đổi tức thì — cần cải biến toàn diện kinh tế, chính trị, văn hóa qua một quá trình lâu dài", "Vì các nước tư bản sẽ cản trở", "Vì cần thời gian tích lũy vốn"],
+    ans: 1,
+    ex: "Thời kỳ quá độ là tất yếu vì sự chuyển đổi giữa 2 hình thái KT–XH khác nhau đòi hỏi cải biến toàn diện, không thể thực hiện trong một sớm một chiều."
+  },
+  {
+    q: "Việt Nam 'quá độ bỏ qua chế độ TBCN' có nghĩa là gì?",
+    opts: ["Bỏ qua tất cả mọi thành tựu của nền văn minh tư bản", "Bỏ qua sự thống trị của quan hệ sản xuất TBCN, nhưng vẫn tiếp thu thành tựu văn minh nhân loại", "Không cần trải qua thời kỳ quá độ", "Xây dựng CNXH mà không cần phát triển kinh tế"],
+    ans: 1,
+    ex: "Bỏ qua chế độ TBCN nghĩa là bỏ qua quan hệ sản xuất TBCN thống trị, không phải bỏ qua thành tựu văn minh, kỹ thuật, quản lý mà CNTB đã đạt được."
+  },
+  {
+    q: "Điểm khác biệt căn bản giữa dân chủ XHCN và dân chủ tư sản là gì?",
+    opts: ["Dân chủ XHCN có nhiều đảng phái hơn", "Dân chủ XHCN bảo vệ lợi ích của đa số nhân dân lao động, còn dân chủ tư sản bảo vệ thiểu số hữu sản", "Dân chủ tư sản có chất lượng thấp hơn về mặt kỹ thuật", "Dân chủ XHCN không cần bầu cử"],
+    ans: 1,
+    ex: "Bản chất: dân chủ XHCN là dân chủ của đa số (nhân dân lao động), còn dân chủ tư sản thực chất là dân chủ bảo vệ giai cấp hữu sản (thiểu số)."
+  },
+  {
+    q: "Nhà nước XHCN mang bản chất giai cấp của ai?",
+    opts: ["Giai cấp tư sản", "Toàn thể dân tộc không phân biệt giai cấp", "Giai cấp công nhân và nhân dân lao động", "Giai cấp nông dân"],
+    ans: 2,
+    ex: "Nhà nước XHCN mang bản chất giai cấp công nhân — là công cụ quyền lực của GCCN và nhân dân lao động để xây dựng và bảo vệ thành quả cách mạng."
+  },
+  {
+    q: "Mô hình vận hành hệ thống chính trị Việt Nam được thể hiện qua công thức nào?",
+    opts: ["Nhà nước lãnh đạo, Đảng quản lý, Nhân dân thực thi", "Đảng lãnh đạo, Nhà nước quản lý, Nhân dân làm chủ", "Nhân dân lãnh đạo, Đảng tổ chức, Nhà nước giám sát", "Đảng lãnh đạo, Nhà nước điều hành, Mặt trận giám sát"],
+    ans: 1,
+    ex: "'Đảng lãnh đạo – Nhà nước quản lý – Nhân dân làm chủ' là cơ chế vận hành của hệ thống chính trị XHCN Việt Nam."
+  },
+  {
+    q: "Nhà nước pháp quyền XHCN Việt Nam quản lý xã hội bằng phương tiện chủ yếu nào?",
+    opts: ["Quyết định hành chính của các cán bộ lãnh đạo", "Hiến pháp, pháp luật và đảm bảo pháp chế XHCN", "Các nghị quyết của Đảng Cộng sản", "Lực lượng vũ trang nhân dân"],
+    ans: 1,
+    ex: "Đặc trưng cơ bản của nhà nước pháp quyền là quản lý bằng Hiến pháp và pháp luật — tất cả tổ chức, công dân đều phải tuân thủ pháp luật."
+  },
+  {
+    q: "GCCN Việt Nam trong thời kỳ đổi mới đóng vai trò then chốt trong sự nghiệp nào?",
+    opts: ["Xuất khẩu nông sản", "Công nghiệp hóa – Hiện đại hóa (CNH–HĐH) đất nước", "Phát triển du lịch quốc tế", "Xây dựng nông thôn mới"],
+    ans: 1,
+    ex: "Trong thời kỳ đổi mới, GCCN VN là lực lượng đi đầu và then chốt trong sự nghiệp CNH–HĐH, xây dựng kinh tế XHCN."
+  },
+  {
+    q: "Hình thức quá độ nào phổ biến trong lịch sử các nước đi lên CNXH?",
+    opts: ["Quá độ trực tiếp: từ phong kiến lên CNXH mà không qua CNTB", "Quá độ gián tiếp: từ những nước có trình độ CNTB phát triển cao", "Tất cả đều theo con đường của Liên Xô", "Không có quy luật chung, mỗi nước hoàn toàn khác nhau"],
+    ans: 0,
+    ex: "Nhiều nước (trong đó có VN, Trung Quốc) tiến lên CNXH theo hình thức quá độ gián tiếp — bỏ qua hoặc rút ngắn giai đoạn CNTB. Liên Xô cũng bắt đầu từ một nước tư bản chủ nghĩa trình độ trung bình."
+  },
+  {
+    q: "Công xã Paris (1871) có ý nghĩa gì đối với lý luận về nhà nước XHCN?",
+    opts: ["Là mô hình hoàn chỉnh đầu tiên của nhà nước XHCN tồn tại lâu dài", "Là thực tiễn đầu tiên về chính quyền của GCCN, cung cấp bài học quý cho lý luận XHCN", "Chứng minh GCCN không thể giành và giữ chính quyền", "Không có ý nghĩa lý luận đáng kể"],
+    ans: 1,
+    ex: "Dù chỉ tồn tại 72 ngày, Công xã Paris là nhà nước kiểu mới đầu tiên của GCCN — cung cấp bài học thực tiễn quý báu cho Marx, Engels và Lenin."
+  },
+  {
+    q: "Trong 3 nội dung sứ mệnh lịch sử, nội dung nào được coi là 'sứ mệnh căn bản nhất'?",
+    opts: ["Văn hóa–tư tưởng: xây dựng hệ tư tưởng mới", "Kinh tế: xóa bỏ chế độ tư hữu và xây dựng QHSX mới", "Quân sự: tiêu diệt lực lượng vũ trang tư sản", "Chính trị: tham gia vào nghị viện tư sản"],
+    ans: 1,
+    ex: "Nội dung kinh tế — xóa bỏ chế độ tư hữu TBCN về TLSX và xây dựng QHSX mới — là nội dung căn bản nhất vì nó quyết định toàn bộ cơ sở hạ tầng xã hội."
+  }
+];
+
+let current = 0, score = 0, answered = false;
+
+function renderQuestion() {
+  const q = questions[current];
+  const pct = Math.round((current / questions.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('quizContent').innerHTML = `
+    <div class="quiz-q"><span class="q-num">${current + 1}/${questions.length}</span>${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((o, i) => `<button class="quiz-opt" onclick="answer(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
+    </div>
+    <div class="quiz-explanation" id="qex">${q.ex}</div>
+    <div class="quiz-nav">
+      <button class="btn-primary" id="nextBtn" onclick="next()" style="display:none">
+        ${current < questions.length - 1 ? 'Câu tiếp theo →' : 'Xem kết quả →'}
+      </button>
+    </div>
+  `;
+  answered = false;
+}
+
+function answer(i) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach((o, idx) => {
+    o.classList.add('disabled');
+    if (idx === q.ans) o.classList.add('correct');
+    else if (idx === i && i !== q.ans) o.classList.add('wrong');
+  });
+  if (i === q.ans) score++;
+  document.getElementById('qex').style.display = 'block';
+  document.getElementById('nextBtn').style.display = 'inline-block';
+}
+
+function next() {
+  current++;
+  if (current < questions.length) {
+    renderQuestion();
+  } else {
+    showScore();
+  }
+}
+
+function showScore() {
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('quizContent').style.display = 'none';
+  const pct = Math.round(score / questions.length * 100);
+  let msg = pct >= 80 ? 'Xuất sắc! Bạn đã nắm vững kiến thức trọng tâm 3 chương. Tiếp tục phát huy!'
+          : pct >= 60 ? 'Khá tốt! Còn một số điểm cần ôn lại. Hãy xem lại phần bạn chưa chắc.'
+          : 'Cần ôn tập thêm! Hãy đọc lại các nội dung trọng tâm và làm lại bài kiểm tra.';
+  document.getElementById('quizScore').style.display = 'block';
+  document.getElementById('quizScore').innerHTML = `
+    <div class="score-big">${score}/${questions.length}</div>
+    <div class="score-label">${pct}% câu đúng</div>
+    <div class="score-msg">${msg}</div>
+    <button class="btn-primary" onclick="restart()" style="margin-top: 32px;">Làm lại từ đầu ↺</button>
+  `;
+}
+
+function restart() {
+  current = 0; score = 0; answered = false;
+  document.getElementById('quizContent').style.display = 'block';
+  document.getElementById('quizScore').style.display = 'none';
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
